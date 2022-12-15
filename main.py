@@ -1,5 +1,13 @@
+#Fastapi
+
 from fastapi import FastAPI
+
+# Python
+
 from dotenv import load_dotenv
+
+# Locales
+
 from routes.auth import auth_routes
 from routes.users_github import users_github
 

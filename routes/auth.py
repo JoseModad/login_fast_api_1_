@@ -1,16 +1,16 @@
-#Fastapi
+# Fastapi
 
 from fastapi import APIRouter, Header
 from fastapi.responses import JSONResponse
 from fastapi import status
 
 
-#Pydantic
+# Pydantic
 
 from pydantic import BaseModel, EmailStr
 
 
-#Other Functions
+# Other Functions
 
 from functions_jwt import write_token, validate_token
 
@@ -24,7 +24,8 @@ class User(BaseModel):
     username: str
     email: EmailStr
     
-    
+## Example
+   
     class Config:
         schema_extra = {
             'example': {      
@@ -36,6 +37,8 @@ class User(BaseModel):
             
 #Routes
 
+## Login
+
 @auth_routes.post("/login")
 def login(user: User):
     print(user.dict())
@@ -43,7 +46,9 @@ def login(user: User):
         return write_token(user.dict())
     else:
         return JSONResponse(content = {"message": "User not found"}, status_code = status.HTTP_404_NOT_FOUND)
-        
+    
+    
+## Verification Token        
     
 @auth_routes.post("/verify/token")
 def verify_token(Authorization: str = Header(None)): 
