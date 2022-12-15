@@ -10,7 +10,7 @@ from fastapi import status
 from pydantic import BaseModel, EmailStr
 
 
-# Other Functions
+# Internal Functions
 
 from functions_jwt import write_token, validate_token
 

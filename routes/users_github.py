@@ -10,8 +10,12 @@ from pydantic import BaseModel
 
 from requests import get
 
+# Internal Functions
 
-users_github = APIRouter()
+from middleware.verify_token_route import VerifyTokenRoute
+
+
+users_github = APIRouter(route_class = VerifyTokenRoute)
 
 # Model
 
