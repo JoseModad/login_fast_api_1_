@@ -1,14 +1,18 @@
+ #Json Web Tokens
+
 from jwt import encode, decode
 from jwt import exceptions
 
+#Python Functions
 
 from datetime import datetime, timedelta
 from os import getenv
 
+#Fastapi
 
-from fastapi import JSONResponse
 from fastapi import status
 from fastapi import HTTPException
+from fastapi.responses import JSONResponse
 
 
 
@@ -26,9 +30,9 @@ def write_token(data: dict):
 def validate_token(token, output = False):
     try:
         if output:
-            decode(token, key = getenv("SECRET"), algorithms = ["HS256"])
+            return decode(token, key = getenv("SECRET"), algorithms = ["HS256"])
         decode(token, key = getenv("SECRET"), algorithms = ["HS256"])
     except exceptions.DecodeError:
-        return JSONResponse(content = {"message": "Invalid Token"}, status_code = 401)
+        return JSONResponse(content = {"message": "Invalid Token"}, status_code = status.HTTP_401_UNAUTHORIZED)
     except exceptions.ExpiredSignatureError:
-        return JSONResponse(content = {"message": "Token Expired"}, status_code = 401)
+        return JSONResponse(content = {"message": "Token Expired"}, status_code = status.HTTP_401_UNAUTHORIZED)
